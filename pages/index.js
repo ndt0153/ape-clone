@@ -10,6 +10,11 @@ export default function Home() {
           rel="stylesheet"
         />
         <title> Doodle Ape Mint</title>
+        <meta
+          property="og:title"
+          content="DAPES with high fashion sense living in the metaverse"
+          key="title"
+        />
       </Head>
       <header className="relative flex items-center justify-center h-screen overflow-hidden">
         <div className="relative z-30 p-5 text-2xl text-white uppercase bg-black bg-opacity-50 w-full">
