@@ -73,7 +73,7 @@ export default function Home() {
                   <p />
                   <div className="flex items-center justify-center text-base md:text-xl space-x-2">
                     <a
-                      href="https://twitter.com/doodleape"
+                      href="https://twitter.com/doodleapenft"
                       className="bg-white btn text-black"
                     >
                       <svg
