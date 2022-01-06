@@ -9,6 +9,7 @@ export default function Home() {
           href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500&amp;display=swap"
           rel="stylesheet"
         />
+        <title> Doodle Ape Mint</title>
       </Head>
       <header className="relative flex items-center justify-center h-screen overflow-hidden">
         <div className="relative z-30 p-5 text-2xl text-white uppercase bg-black bg-opacity-50 w-full">
