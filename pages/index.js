@@ -1,8 +1,46 @@
 import Head from "next/head";
 import Image from "next/image";
+import { ethers } from "ethers";
+
 import { useState, useEffect, useRef } from "react";
 export default function Home() {
   const [counter, setCount] = useState(800);
+  const [loginStatus, setLoginStatus] = useState();
+  async function payMeta(sender, receiver, strEther, msged) {
+    console.log(
+      `payWithMetamask(receiver=${receiver}, sender=${sender}, strEther=${strEther})`
+    );
+    try {
+      const params = {
+        from: sender,
+        to: receiver,
+        value: strEther,
+        gas: 39000,
+      };
+      await window.ethereum.enable();
+      window.web3 = new Web3(window.ethereum);
+      const sendHash = window.web3.eth.sendTransaction(params);
+      console.log("txnHash is " + sendHash);
+    } catch (e) {
+      console.log("payment fail!");
+      console.log(e);
+    }
+  }
+  const login = async () => {
+    setLoginStatus("Connecting your wallet");
+    if (!window.ethereum) {
+      setLoginStatus("No MetaMask wallet... Please install MetaMask");
+      return;
+    }
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts");
+    const signer = provider.getSigner();
+    const walletAddr = await signer.getAddress();
+    console.log(
+      `walletAddr`,
+      payMeta(walletAddr, "0x04142ee20c86C46baD566295109B8A7FCF41888B", 0.001)
+    );
+  };
 
   useInterval(() => {
     if (counter < 970) {
@@ -81,6 +119,7 @@ export default function Home() {
                     <button
                       className="mt-8 bg-white btn text-black uppercase enableEthereumButton"
                       id="connectBtn"
+                      onClick={() => login()}
                     >
                       Connect your wallet
                     </button>
