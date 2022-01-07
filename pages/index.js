@@ -2,11 +2,11 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 export default function Home() {
-  const [counter, setCount] = useState(0);
+  const [counter, setCount] = useState(800);
 
   useInterval(() => {
     if (counter < 970) {
-      setCount(counter + Math.floor(Math.random() * 4));
+      setCount(counter + Math.floor(Math.random() * 8));
     }
   }, 1000);
 
