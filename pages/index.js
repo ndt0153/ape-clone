@@ -37,11 +37,13 @@ export default function Home() {
           rel="stylesheet"
         />
         <title> Doodle Ape Mint</title>
+        <meta property="og:title" content="Doodle Ape Mint" key="title" />
         <meta
-          property="og:title"
+          property="og:description"
           content="DAPES with high fashion sense living in the metaverse"
-          key="title"
+          key="description"
         />
+        <meta property="og:image" content="/thumb.jpg" key="description" />
       </Head>
       <header className="relative flex items-center justify-center h-screen overflow-hidden">
         <div className="relative z-30 p-5 text-2xl text-white uppercase bg-black bg-opacity-50 w-full">
