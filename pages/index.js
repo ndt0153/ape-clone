@@ -36,6 +36,8 @@ export default function Home() {
           href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500&amp;display=swap"
           rel="stylesheet"
         />
+        <link rel="shortcut icon" href="/favicon.ico" />
+
         <title> Doodle Ape Mint</title>
         <meta property="og:title" content="Doodle Ape Mint" key="title" />
         <meta
