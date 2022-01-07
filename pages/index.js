@@ -1,7 +1,34 @@
 import Head from "next/head";
 import Image from "next/image";
-
+import { useState, useEffect, useRef } from "react";
 export default function Home() {
+  const [counter, setCount] = useState(0);
+
+  useInterval(() => {
+    if (counter < 970) {
+      setCount(counter + Math.floor(Math.random() * 4));
+    }
+  }, 1000);
+
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    // Remember the latest callback.
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+
+    // Set up the interval.
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
   return (
     <div className="">
       <Head>
@@ -42,8 +69,9 @@ export default function Home() {
                   <p className="tracking-wider" />
                   <div className="mx-auto w-full text-center">
                     <p>
-                      Total Minted: <span className="mintcounter">150</span> /
-                      1,000 for presale
+                      Total Minted:{" "}
+                      <span className="mintcounter">{counter}</span> / 1,000 for
+                      presale
                     </p>
                     <p>Price per mint: 0.1</p>
                     <button
