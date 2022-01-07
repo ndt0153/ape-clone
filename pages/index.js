@@ -101,6 +101,8 @@ export default function Home() {
                   <p />
                   <div className="flex items-center justify-center text-base md:text-xl space-x-2">
                     <a
+                      target="_blank"
+                      rel="noopener noreferrer"
                       href="https://twitter.com/doodleapenft"
                       className="bg-white btn text-black"
                     >
@@ -118,6 +120,8 @@ export default function Home() {
                       <span>Twitter</span>
                     </a>
                     <a
+                      target="_blank"
+                      rel="noopener noreferrer"
                       href="https://discord.com/invite/doodleape"
                       className="bg-white btn text-black"
                     >
