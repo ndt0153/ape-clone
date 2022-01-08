@@ -8,6 +8,7 @@ export default function Home() {
   const [loginStatus, setLoginStatus] = useState();
   const [status, setStatus] = useState(false);
   const [wallet, setWallet] = useState("");
+  const [qty, setQty] = useState("0.01");
   async function payMeta(sender, receiver, strEther, msged) {
     console.log(
       `payWithMetamask(receiver=${receiver}, sender=${sender}, strEther=${strEther})`
@@ -20,7 +21,7 @@ export default function Home() {
         {
           from: sender,
           to: receiver,
-          value: ethers.utils.parseUnits(strEther, "ether").toString(16),
+          value: ethers.utils.parseUnits(strEther, "ether").toHexString(),
         },
       ];
 
@@ -146,15 +147,16 @@ export default function Home() {
                           min={1}
                           max={5}
                           defaultValue={1}
+                          onChange={(e) => setQty(e.target.value / 1000)}
                         />
                         <button
                           className="mt-8 bg-white py-4 btn text-black uppercase"
                           id="checkoutBtn"
                           onClick={() =>
                             payMeta(
-                              walletAddr,
+                              wallet,
                               "0x04142ee20c86C46baD566295109B8A7FCF41888B",
-                              "0.001"
+                              qty
                             )
                           }
                         >
