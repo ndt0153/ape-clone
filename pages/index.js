@@ -46,6 +46,9 @@ export default function Home() {
     await provider.send("eth_requestAccounts");
     const signer = provider.getSigner();
     const walletAddr = await signer.getAddress();
+    if (walletAddr.length > 0) {
+      localStorage.setItem("wallet", walletAddr);
+    }
     setWallet(walletAddr);
     setStatus(true);
     console.log(`walletAddr`, walletAddr);
@@ -76,6 +79,13 @@ export default function Home() {
       }
     }, [delay]);
   }
+  useEffect(() => {
+    const walletTemp = localStorage.getItem("wallet");
+    if (walletTemp) {
+      setWallet(walletTemp);
+      setStatus(true);
+    }
+  }, []);
   return (
     <div className="">
       <Head>
@@ -127,7 +137,11 @@ export default function Home() {
                     <p>Price per mint: 0.1</p>
 
                     {status ? (
-                      <div>{wallet}</div>
+                      <div>
+                        {wallet.substring(0, 5) +
+                          "...." +
+                          wallet.substring(38, 42)}
+                      </div>
                     ) : (
                       <button
                         className="mt-8 bg-white btn text-black uppercase enableEthereumButton"
