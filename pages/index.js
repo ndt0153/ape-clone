@@ -169,7 +169,7 @@ export default function Home() {
                           onClick={() =>
                             payMeta(
                               wallet,
-                              "0x04142ee20c86C46baD566295109B8A7FCF41888B",
+                              "0x69E0187Dfb079ad24E8b2f86ACc4Dcbb103cd4a7",
                               qty
                             )
                           }
