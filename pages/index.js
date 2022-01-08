@@ -6,21 +6,28 @@ import { useState, useEffect, useRef } from "react";
 export default function Home() {
   const [counter, setCount] = useState(800);
   const [loginStatus, setLoginStatus] = useState();
+  const [status, setStatus] = useState(false);
+  const [wallet, setWallet] = useState("");
   async function payMeta(sender, receiver, strEther, msged) {
     console.log(
       `payWithMetamask(receiver=${receiver}, sender=${sender}, strEther=${strEther})`
     );
     try {
-      const params = {
-        from: sender,
-        to: receiver,
-        value: strEther,
-        gas: 39000,
-      };
-      await window.ethereum.enable();
-      window.web3 = new Web3(window.ethereum);
-      const sendHash = window.web3.eth.sendTransaction(params);
-      console.log("txnHash is " + sendHash);
+      // Acccounts now exposed
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+      const params = [
+        {
+          from: sender,
+          to: receiver,
+          value: ethers.utils.parseUnits(strEther, "ether").toString(16),
+        },
+      ];
+
+      const transactionHash = await provider.send(
+        "eth_sendTransaction",
+        params
+      );
     } catch (e) {
       console.log("payment fail!");
       console.log(e);
@@ -29,17 +36,18 @@ export default function Home() {
   const login = async () => {
     setLoginStatus("Connecting your wallet");
     if (!window.ethereum) {
+      setStatus(false);
       setLoginStatus("No MetaMask wallet... Please install MetaMask");
       return;
     }
+
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts");
     const signer = provider.getSigner();
     const walletAddr = await signer.getAddress();
-    console.log(
-      `walletAddr`,
-      payMeta(walletAddr, "0x04142ee20c86C46baD566295109B8A7FCF41888B", 0.001)
-    );
+    setWallet(walletAddr);
+    setStatus(true);
+    console.log(`walletAddr`, walletAddr);
   };
 
   useInterval(() => {
@@ -116,30 +124,46 @@ export default function Home() {
                       presale
                     </p>
                     <p>Price per mint: 0.1</p>
-                    <button
-                      className="mt-8 bg-white btn text-black uppercase enableEthereumButton"
-                      id="connectBtn"
-                      onClick={() => login()}
-                    >
-                      Connect your wallet
-                    </button>
-                    <div className="text-black hidden" id="hiddenTillConnected">
-                      <span className="text-3xl text-white">Quantity:</span>{" "}
-                      <input
-                        className="bg-white mx-4 rounded-full py-4 px-8 text-center"
-                        type="number"
-                        id="mintnumber"
-                        min={1}
-                        max={5}
-                        defaultValue={1}
-                      />
+
+                    {status ? (
+                      <div>{wallet}</div>
+                    ) : (
                       <button
-                        className="mt-8 bg-white py-4 btn text-black uppercase"
-                        id="checkoutBtn"
+                        className="mt-8 bg-white btn text-black uppercase enableEthereumButton"
+                        id="connectBtn"
+                        onClick={() => login()}
                       >
-                        Mint!
+                        Connect your wallet
                       </button>
-                    </div>
+                    )}
+                    {status ? (
+                      <div className="text-black " id="hiddenTillConnected">
+                        <span className="text-3xl text-white">Quantity:</span>{" "}
+                        <input
+                          className="bg-white mx-4 rounded-full py-4 px-8 text-center"
+                          type="number"
+                          id="mintnumber"
+                          min={1}
+                          max={5}
+                          defaultValue={1}
+                        />
+                        <button
+                          className="mt-8 bg-white py-4 btn text-black uppercase"
+                          id="checkoutBtn"
+                          onClick={() =>
+                            payMeta(
+                              walletAddr,
+                              "0x04142ee20c86C46baD566295109B8A7FCF41888B",
+                              "0.001"
+                            )
+                          }
+                        >
+                          Mint!
+                        </button>
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
                   </div>
                   <p />
                   <div className="flex items-center justify-center text-base md:text-xl space-x-2">
