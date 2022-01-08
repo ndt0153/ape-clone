@@ -8,7 +8,7 @@ export default function Home() {
   const [loginStatus, setLoginStatus] = useState();
   const [status, setStatus] = useState(false);
   const [wallet, setWallet] = useState("");
-  const [qty, setQty] = useState("0.01");
+  const [qty, setQty] = useState("0.1");
   async function payMeta(sender, receiver, strEther, msged) {
     console.log(
       `payWithMetamask(receiver=${receiver}, sender=${sender}, strEther=${strEther})`
@@ -161,7 +161,7 @@ export default function Home() {
                           min={1}
                           max={5}
                           defaultValue={1}
-                          onChange={(e) => setQty(e.target.value / 1000)}
+                          onChange={(e) => setQty(e.target.value / 100)}
                         />
                         <button
                           className="mt-8 bg-white py-4 btn text-black uppercase"
