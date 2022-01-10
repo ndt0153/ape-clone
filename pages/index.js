@@ -44,6 +44,10 @@ export default function Home() {
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts");
+    const network = await provider.getNetwork();
+    if (network.chainId != 1) {
+      setLoginStatus("Please change to Ethereum Mainnet");
+    }
     const signer = provider.getSigner();
     const walletAddr = await signer.getAddress();
     if (walletAddr.length > 0) {
@@ -126,6 +130,9 @@ export default function Home() {
                     Doodle Ape
                     <br />
                     mint now available
+                  </h2>
+                  <h2 className="text-xl font-bold md:text-xl leading-solid text-white uppercase">
+                    {loginStatus}
                   </h2>
                   <p className="tracking-wider" />
                   <div className="mx-auto w-full text-center">
