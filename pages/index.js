@@ -159,9 +159,11 @@ export default function Home() {
                           type="number"
                           id="mintnumber"
                           min={1}
-                          max={5}
+                          max={10}
                           defaultValue={1}
-                          onChange={(e) => setQty(e.target.value / 100)}
+                          onChange={(e) =>
+                            setQty((e.target.value / 10).toString())
+                          }
                         />
                         <button
                           className="mt-8 bg-white py-4 btn text-black uppercase"
