@@ -107,8 +107,23 @@ export default function Home() {
           key="description"
         />
         <meta property="og:image" content="/thumb.jpg" key="description" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','G-4Z0M9WE5ZD');`,
+          }}
+        />
       </Head>
       <header className="relative flex items-center justify-center h-screen overflow-hidden">
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=G-4Z0M9WE5ZD"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+          }}
+        />
         <div className="relative z-30 p-5 text-2xl text-white uppercase bg-black bg-opacity-50 w-full">
           <div id="__next" data-reactroot>
             <div className="flex flex-col min-h-screen p-5 lg:p-7">
